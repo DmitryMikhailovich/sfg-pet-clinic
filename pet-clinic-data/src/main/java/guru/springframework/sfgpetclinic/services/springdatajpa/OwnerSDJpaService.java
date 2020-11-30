@@ -12,11 +12,11 @@ import java.util.Set;
 
 @Service
 @PropertySource("springdatajpa")
-public class OwnerSDJpa implements OwnerService {
+public class OwnerSDJpaService implements OwnerService {
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerSDJpa(OwnerRepository ownerRepository) {
+    public OwnerSDJpaService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
     }
 
