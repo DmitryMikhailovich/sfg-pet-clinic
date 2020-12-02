@@ -55,12 +55,13 @@ public class DataInit implements CommandLineRunner {
         dentistry.setDescription("Dentistry");
         dentistry = specialtyService.save(dentistry);
 
-        Owner owner1 = new Owner();
-        owner1.setFirstName("Vasiliy");
-        owner1.setLastName("Pupkin");
-        owner1.setAddress("Lenina str, 13");
-        owner1.setCity("Moscow");
-        owner1.setPhone("+79999999999");
+        Owner owner1 = Owner.builder()
+                .firstName("Vasiliy")
+                .lastName("Pupkin")
+                .address("Lenina str, 13")
+                .city("Moscow")
+                .phone("+79999999999")
+                .build();
 
         Pet pupkinsPet = new Pet();
         pupkinsPet.setName("Bobik");
@@ -71,12 +72,13 @@ public class DataInit implements CommandLineRunner {
 
         ownerService.save(owner1);
 
-        Owner owner2 = new Owner();
-        owner2.setFirstName("Helen");
-        owner2.setLastName("Golovach");
-        owner2.setAddress("Lenina str, 15");
-        owner2.setCity("Moscow");
-        owner2.setPhone("+79999999777");
+        Owner owner2 = Owner.builder()
+                .firstName("Helen")
+                .lastName("Golovach")
+                .address("Lenina str, 15")
+                .city("Moscow")
+                .phone("+79999999777")
+                .build();
 
         Pet helensPet = new Pet();
         helensPet.setName("Leopard");
