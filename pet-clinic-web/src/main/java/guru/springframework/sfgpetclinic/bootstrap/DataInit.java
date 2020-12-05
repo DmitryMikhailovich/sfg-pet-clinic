@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 
 @Component
 public class DataInit implements CommandLineRunner {
@@ -61,6 +62,7 @@ public class DataInit implements CommandLineRunner {
                 .address("Lenina str, 13")
                 .city("Moscow")
                 .phone("+79999999999")
+                .pets(new HashSet<>())
                 .build();
 
         Pet pupkinsPet = new Pet();
@@ -78,6 +80,7 @@ public class DataInit implements CommandLineRunner {
                 .address("Lenina str, 15")
                 .city("Moscow")
                 .phone("+79999999777")
+                .pets(new HashSet<>())
                 .build();
 
         Pet helensPet = new Pet();
