@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 @Setter
@@ -20,7 +21,9 @@ public class Owner extends Person {
         this.address = address;
         this.city = city;
         this.phone = phone;
-        this.pets = pets;
+        if(pets != null) {
+            this.pets = pets;
+        }
     }
 
     @Column(name = "address")
@@ -35,4 +38,19 @@ public class Owner extends Person {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
+    public Pet getPet(String name) {
+        return getPet(name, false);
+    }
+
+    public Pet getPet(String name, boolean ignoreNew) {
+        name = name.toLowerCase();
+        for(Pet pet : pets) {
+            if(!ignoreNew || !pet.isNew()) {
+                if(pet.getName().equalsIgnoreCase(name)) {
+                    return pet;
+                }
+            }
+        }
+        return null;
+    }
 }
