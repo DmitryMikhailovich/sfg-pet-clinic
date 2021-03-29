@@ -11,10 +11,16 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "pets")
 public class Pet extends BaseEntity {
+
+    @Builder
+    public Pet(Long id, String name, LocalDate birthDate) {
+        super(id);
+        this.name = name;
+        this.birthDate = birthDate;
+    }
 
     @Column(name = "name")
     private String name;
