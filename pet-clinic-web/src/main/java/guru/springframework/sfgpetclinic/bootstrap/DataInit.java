@@ -105,16 +105,16 @@ public class DataInit implements CommandLineRunner {
         Vet vet1 = new Vet();
         vet1.setFirstName("Ivan");
         vet1.setLastName("Ivanov");
-        vet1.getSpecilties().add(radiology);
-        vet1.getSpecilties().add(dentistry);
+        vet1.getSpecialties().add(radiology);
+        vet1.getSpecialties().add(dentistry);
 
         vetService.save(vet1);
 
         Vet vet2 = new Vet();
         vet2.setFirstName("Vlad");
         vet2.setLastName("Dracula");
-        vet2.getSpecilties().add(surgery);
-        vet2.getSpecilties().add(dentistry);
+        vet2.getSpecialties().add(surgery);
+        vet2.getSpecialties().add(dentistry);
 
         vetService.save(vet2);
 
