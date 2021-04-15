@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Setter
@@ -20,6 +21,7 @@ public class Visit extends BaseEntity {
     private LocalDate date;
 
     @Column(name = "description")
+    @NotBlank
     private String description;
 
     @ManyToOne

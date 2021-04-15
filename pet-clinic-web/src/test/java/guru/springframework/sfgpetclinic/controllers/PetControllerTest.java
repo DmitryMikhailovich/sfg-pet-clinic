@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -80,11 +81,27 @@ class PetControllerTest {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
 
-        mockMvc.perform(post("/owners/1/pets/new"))
+        mockMvc.perform(post("/owners/1/pets/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "Animal"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
 
         verify(petService).save(any());
+    }
+
+    @Test
+    void processCreationFormValidationFail() throws Exception {
+        when(ownerService.findById(anyLong())).thenReturn(owner);
+        when(petTypeService.findAll()).thenReturn(petTypes);
+
+        mockMvc.perform(post("/owners/1/pets/new")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("pets/createOrUpdatePetForm"));
+
+        verifyNoInteractions(petService);
     }
 
     @Test
@@ -104,11 +121,29 @@ class PetControllerTest {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
 
-        mockMvc.perform(post("/owners/1/pets/2/edit"))
+        mockMvc.perform(post("/owners/1/pets/2/edit")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "Animal"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"))
                 .andExpect(model().attributeExists("owner"));
 
         verify(petService).save(any());
     }
+
+    // TODO: fix abnormal 400 status code
+//    @Test
+//    void processUpdateFormValidationFail() throws Exception {
+//        when(ownerService.findById(anyLong())).thenReturn(owner);
+//        when(petTypeService.findAll()).thenReturn(petTypes);
+//
+//        mockMvc.perform(post("/owners/1/pets/2/edit")
+//                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+//                        .param("name", ""))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("pets/createOrUpdatePetForm"))
+//                .andExpect(model().attributeExists("pet"));
+//
+//        verifyNoInteractions(petService);
+//    }
 }
